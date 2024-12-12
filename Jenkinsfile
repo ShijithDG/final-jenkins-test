@@ -11,7 +11,16 @@ pipeline{
         stage('running Script'){
             steps{
                 sh 'python3 add.py'
+                sh '''
+                    sudo apt-get update
+                    sudo apt-get install -y unzip curl
+                    rm -rf aws cliv2.zip aws/
+                    sudo curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+                    unzip awscliv2.zip
+                    sudo ./aws/install --update
+                '''
                 echo 'success'
+                sh 'aws --version'
             }
         }
     }
