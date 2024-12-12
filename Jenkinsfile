@@ -23,13 +23,13 @@ pipeline{
                 sh 'aws --version'
             }
         }
-        stage{
+        stage('Artifacts Creation'){
             steps{
                 sh 'tar -cvf my_app.tar.gz add.py'
                 echo 'artifacts created successfully'
             }
         }
-        stage{
+        stage('Deploy aws-S3'){
             steps{
                 withCredentials([[
                     $class:'AmazonWebServicesCredentialsBinding',
