@@ -37,7 +37,7 @@ pipeline{
 
                 ]]){
                     sh 'aws s3 ls'
-                    // sh 'aws s3 cp my_app.tar.gz s3://deploy-bucket --region=ap-south-1'
+                    sh 'aws s3 cp my_app.tar.gz s3://deploy-bucket-0s --region=ap-south-1'
                 }
             }
         }
