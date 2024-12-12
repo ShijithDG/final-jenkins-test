@@ -23,6 +23,23 @@ pipeline{
                 sh 'aws --version'
             }
         }
+        stage{
+            steps{
+                sh 'tar -cvf my_app.tar.gz add.py'
+                echo 'artifacts created successfully'
+            }
+        }
+        stage{
+            steps{
+                withCredentials([[
+                    $class:'AmazonWebServicesCredentialsBinding',
+                    credentialsId,'jenkins-aws',
+
+                ]]){
+                    sh 'aws s3 cp my_app.tar.gz s3://deploy-bucket --region=ap-south-1'
+                }
+            }
+        }
     }
     post{
         always{
